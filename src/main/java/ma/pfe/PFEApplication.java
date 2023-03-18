@@ -12,10 +12,10 @@ public class PFEApplication {
 
     public static void main(String[] args) {
 
-        LOGGER.debug("start application log 1 ");
-        LOGGER.warn("start application log 2 ");
-        LOGGER.info("start application log 3 ");
-        LOGGER.error("start application log 4 ");
+//        LOGGER.debug("start application log 1");
+//        LOGGER.warn("start application log 2");
+//        LOGGER.info("start application log 3");
+//        LOGGER.error("start application log 4");
         SpringApplication.run(PFEApplication.class, args);
     }
 }
