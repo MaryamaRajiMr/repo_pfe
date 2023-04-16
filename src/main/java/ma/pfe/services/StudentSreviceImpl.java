@@ -1,7 +1,6 @@
 package ma.pfe.services;
 
 import ma.pfe.dtos.StudentDTO;
-import ma.pfe.entities.StudentEntity;
 import ma.pfe.mappers.StudentMapper;
 import ma.pfe.repositories.StudentRepository;
 import org.slf4j.Logger;
@@ -24,38 +23,35 @@ public class StudentSreviceImpl implements StudentService{
     @Qualifier("mapper1")
     private StudentMapper mapper;
 
-
-
-    public StudentSreviceImpl() {
-        System.out.println("Instanciation StudentSreviceImpl ");
-    }
+//    public StudentSreviceImpl() {
+//        System.out.println("Instanciation StudentSreviceImpl ");
+//    }
 
     @Override
     public Long save(StudentDTO dto) {
         LOGGER.debug("start method save");
-        StudentEntity e=mapper.convertToEntity(dto);
-        return repository.save(e);
+        StudentDTO rep = mapper.convertToDto(repository.save(mapper.convertToEntity(dto)));
+        return rep.getId();
     }
 
     @Override
-    public Boolean update(StudentDTO dto) {
+    public long update(StudentDTO dto) {
         LOGGER.debug("start method update");
-        StudentEntity e=mapper.convertToEntity(dto);
-        return repository.update(e);
+        StudentDTO rep = mapper.convertToDto(repository.save(mapper.convertToEntity(dto)));
+        return rep.getId();
     }
 
     @Override
     public Boolean deletById(Long id) {
         LOGGER.debug("start method deletById");
-        return repository.deletById(id);
+        repository.deleteById(id);
+        return true;
     }
 
     @Override
     public List<StudentDTO> slectAll() {
         LOGGER.debug("start method selectAll");
-        List<StudentEntity> l=repository.slectAll();
-        List<StudentDTO> ld=mapper.convertToDtos(l);
-        return ld;
+        return mapper.convertToDtos(repository.findAll());
     }
 
 }
