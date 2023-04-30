@@ -7,19 +7,33 @@ import javax.persistence.*;
 @Table(name = "T_STUDENTS")
 public class StudentEntity {
 
-    @Id
-    @Column(name="id_student")
-    private long id;
+    @EmbeddedId
+    private StudentId id;
 
     @Column(name="name_student")
     private String name;
 
-    public long getId() {
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="rue",column = @Column(name = "rue_student")),
+            @AttributeOverride(name="avenue",column = @Column(name = "avenue_student"))
+    })
+    private Adresse adresse;
+
+    public StudentId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(StudentId id) {
         this.id = id;
+    }
+
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }
 
     public String getName() {
@@ -33,8 +47,9 @@ public class StudentEntity {
     @Override
     public String toString() {
         return "StudentEntity{" +
-                "id=" + id +
+                "studentId=" + id +
                 ", name='" + name + '\'' +
+                ", adresse=" + adresse +
                 '}';
     }
 }

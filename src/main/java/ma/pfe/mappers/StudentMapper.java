@@ -15,7 +15,7 @@ public class StudentMapper {
 
         StudentEntity e= new StudentEntity();
         e.setName(o.getName());
-        e.setId(o.getId());
+        //e.setId(o.getId());
         return e;
     }
 
@@ -23,7 +23,7 @@ public class StudentMapper {
 
         StudentDTO o=new StudentDTO();
         o.setName(e.getName());
-        o.setId(e.getId());
+        //o.setId(e.getId());
         return o;
     }
 
