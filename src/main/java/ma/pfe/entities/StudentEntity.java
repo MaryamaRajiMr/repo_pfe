@@ -2,9 +2,13 @@ package ma.pfe.entities;
 // Represente la table
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "T_STUDENTS")
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name="C_TYPE_STUDENT")
+//@DiscriminatorValue("s")
 public class StudentEntity {
 
     @EmbeddedId
@@ -19,6 +23,9 @@ public class StudentEntity {
             @AttributeOverride(name="avenue",column = @Column(name = "avenue_student"))
     })
     private Adresse adresse;
+
+    @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    private List<CourseEntity> courses;
 
     public StudentId getId() {
         return id;
@@ -42,6 +49,14 @@ public class StudentEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<CourseEntity> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<CourseEntity> courses) {
+        this.courses = courses;
     }
 
     @Override
